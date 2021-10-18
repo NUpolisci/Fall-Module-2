@@ -96,8 +96,9 @@ drugs_data %>%
 # Exercises
 ### 1. What is github like?
 ### 2. **Two** ways to use `select` for pick the first three variables in the drugs dataset (i.e. sex, sexage_rec, and health_cond) [hint: help file]
-### 3. Using `%>%`, `select`, and `table`, make a table with `sex` and `educ`
-### 4. What changes if you use `knitr::kable` at the end of #3?
+### 3. Filter `health_cond` is good for those who are women.
+### 4. Using `%>%`, `select`, and `table`, make a table with `sex` and `educ`
+### 5. What changes if you use `knitr::kable` at the end of #4?
 
 
 
