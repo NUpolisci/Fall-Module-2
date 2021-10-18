@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Mod 2.1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="AS d’Urso; Theme by: Pilar Manzi" />
+    <meta name="date" content="2021-10-18" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link rel="stylesheet" href="custom_2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Mod 2.1
+### AS d’Urso; Theme by: Pilar Manzi
+### 10/18/2021
+
+---
+
+
+
+
+# Outline 
+
+1. Recap: Plotting variables 
+2. Github (Very quick only)
+3. Intro to `tidyverse`
+
+---
+# Outline 
+
+1. **Recap: Plotting variables**
+2. Github (Very quick only)
+3. Intro to `tidyverse`
+
+---
+
+## Histogram 
+
+Let's say we want to plot a histogram. What type of variable do we need?
+
+--
+&lt;br&gt;&lt;br&gt;
+Let's use `mjage` from last week. What does our code look like? 
+
+--
+
+```r
+hist(drugs_data$mjage)
+```
+
+--
+
+```r
+drugs_dat &lt;- read_csv("drugs.csv")
+```
+
+--
+
+```r
+library(readr)
+```
+
+---
+
+# Histogram
+
+```r
+library(readr)
+drugs_data &lt;- read_csv("drugs.csv")
+```
+
+--
+
+.pull-left[
+
+```r
+hist(drugs_data$mjage)
+```
+]
+
+.pull-right[
+&lt;img src="Mod-2.1_files/figure-html/unnamed-chunk-6-1.png" width="75%" /&gt;
+]
+
+---
+# Boxplot 
+.pull-left[
+
+```r
+boxplot(drugs_data$mjage ~ drugs_data$health_cond)
+# ALT:
+# boxplot(mjage ~ health_cond, data = drugs_data)
+```
+]
+
+.pull-right[
+&lt;img src="Mod-2.1_files/figure-html/unnamed-chunk-8-1.png" width="80%" /&gt;
+]
+---
+# Outline 
+
+1. Recap: Plotting variables
+2. **Github (Very quick only)**
+3. Intro to `tidyverse`
+
+---
+
+# Github 
+
+How to use Github repositories for these modules... 
+
+--
+&gt; **and eventually your own work!**
+
+---
+
+## See [How-to-use-Github-repositories-for-workshops](https://github.com/NUpolisci/How-to-use-Github-repositories-for-workshops) 
+[This](https://github.com/NUpolisci/How-to-use-Github-repositories-for-workshops) repository is for students who do not know how to access files in github repositories
+
+---
+## Overview of Github
+Github is essentially like 'Dropbox', 'Google Drive', 'Box', etc... It is a ways to manage versions of files, including R scripts, between collaborators and your past and furture selves. Rather than having each departmental workshop run out of different folders via 'Dropbox', 'Google Drive', 'Box', etc... we can put it all onto Github. This makes it simple for accessing the latest versions of all workshops, as well as previous workshops. 
+
+---
+
+## Simple: How to Download Github Repositories 
+
+If you click on a repository, you will be lead to the repository's 'landing page'. For instance, this repository's 'landing page' is ![here](https://github.com/NUpolisci/How-to-use-Github-repositories-for-workshops). Once here, click on the green button which says `Code`. From there, you can download the repository as a zip file. 
+
+---
+&lt;img src="Figures/Download.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+When you unzip the file, you can save it in any place on your computer that you prefer.
+
+---
+# Outline 
+
+1. Recap: Plotting variables
+2. Github (Very quick only)
+3. **Intro to `tidyverse`**
+
+---
+# Intro to `tidyverse`
+
+“System of packages for data manipulation, exploration, and visualization that share a common design philosophy” - Rickert
+
+--
+&lt;br&gt;&lt;br&gt;
+Some people prefer `base`, `data.table`, or `tidyverse`
+--
+&lt;br&gt;&lt;br&gt;
+Today:
+1. What is the tidyverse?
+2. Tools to tidy data: `%&gt;%`, `select`, `summarize`
+3. Tables
+
+---
+## What is `tidyverse`
+
+.pull-left[
+Mainly developed by Hadley Wickham; packages that work together using consistent language structures—once you learn it, these packages will feel as one
+]
+
+.pull-right[
+&lt;img src="Figures/r for ds.png" width="80%" /&gt;
+]
+
+---
+&lt;img src="Figures/tidy libraries.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+# `select`ing Columns
+
+Index notation for selecting `mjage`?
+
+--
+
+```r
+drugs_data[,"mjage"]
+drugs_data$mjage
+```
+
+```
+## [1] 14 15 16 16 16 16
+```
+
+--
+
+```r
+library(tidyverse)
+?select
+```
+
+---
+# `select`ing Columns
+
+(These words are meant to be useful, fyi)
+
+
+```r
+select(drugs_data, mjage)
+```
+
+
+```
+##   mjage
+## 1    14
+## 2    15
+## 3    16
+## 4    16
+## 5    16
+```
+
+--
+It always returns a `tibble` which is basically a dataset
+
+---
+# A change in syntax: Pipes 
+
+- Read %&gt;% as "then"
+
+- It sends the result of one function to another function
+
+- It lets us perform multiple operations at once, without creating an object for each one of them.
+---
+# How it works
+Basic syntax: 
+
+```r
+function(object, arguments)
+```
+
+Piped syntax: 
+
+```r
+object %&gt;% 
+  function(arguments)
+```
+---
+# How it works
+Basic syntax: 
+
+```r
+function(object, arguments)
+```
+
+Piped syntax: 
+
+```r
+object %&gt;% 
+  function(arguments) %&gt;% 
+  function(arguments) %&gt;% 
+  function(arguments)
+```
+
+---
+# Try it
+
+Select three different variables using a pipe [hint: look at help file]
+
+--
+
+```r
+drugs_data %&gt;% 
+  select(sex, educ, mjage)
+```
+
+
+```
+##      sex            educ mjage
+## 1   Male Some coll/Assoc    14
+## 2 Female     12-17yrsold    15
+## 3   Male         Less HS    16
+## 4 Female Some coll/Assoc    16
+## 5 Female    College grad    16
+```
+
+---
+# `summarize`
+
+This function takes your dataset and condenses it to reveal the set of descriptive stats you are interest in 
+
+
+```r
+?summarize
+```
+
+---
+## Try it 
+
+Average `mjage`
+
+
+```r
+drugs_data %&gt;% 
+  summarize(mean_mjage = mean(mjage))
+```
+Before pressing enter, what do you expect to see?
+--
+
+```
+##   mean_mjage
+## 1    15.9894
+```
+---
+# Tables 
+1. `stargazer`
+2. `knitr::kable`
+
+---
+# `stargazer`
+
+What next? 
+
+
+```r
+drugs_data %&gt;% 
+  summarize(mean_mjage = mean(mjage)) 
+```
+--
+
+```r
+library(stargazer)
+drugs_data %&gt;% 
+  summarize(mean_mjage = mean(mjage)) %&gt;% 
+  stargazer(type = "html")
+```
+
+```
+## 
+## &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="8" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Statistic&lt;/td&gt;&lt;td&gt;N&lt;/td&gt;&lt;td&gt;Mean&lt;/td&gt;&lt;td&gt;St. Dev.&lt;/td&gt;&lt;td&gt;Min&lt;/td&gt;&lt;td&gt;Pctl(25)&lt;/td&gt;&lt;td&gt;Pctl(75)&lt;/td&gt;&lt;td&gt;Max&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan="8" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;mean_mjage&lt;/td&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;15.989&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;15.989&lt;/td&gt;&lt;td&gt;15.989&lt;/td&gt;&lt;td&gt;15.989&lt;/td&gt;&lt;td&gt;15.989&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan="8" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+```
+---
+# `knitr::kable`
+
+```r
+drugs_data %&gt;% 
+  summarize(mean_mjage = mean(mjage)) %&gt;% 
+  knitr::kable()
+```
+
+
+
+| mean_mjage|
+|----------:|
+|    15.9894|
+---
+# Exercises
+
+1. What is github like?
+2. **Two** ways to use `select` for pick the first three variables in the drugs dataset (i.e. sex, sexage_rec, and health_cond) [hint: help file]
+3. Using `%&gt;%`, `select`, and `table`, make a table with `sex` and `educ`
+4. What changes if you use `knitr::kable` at the end of #3?
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
