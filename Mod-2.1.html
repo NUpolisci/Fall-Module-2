@@ -23,86 +23,15 @@ class: center, middle, inverse, title-slide
 
 # Outline 
 
-1. Recap: Plotting variables 
-2. Github (Very quick only)
+1. Github (Very quick only)
+2. Recap: Plotting variables 
 3. Intro to `tidyverse`
 
 ---
 # Outline 
 
-1. **Recap: Plotting variables**
-2. Github (Very quick only)
-3. Intro to `tidyverse`
-
----
-
-## Histogram 
-
-Let's say we want to plot a histogram. What type of variable do we need?
-
---
-&lt;br&gt;&lt;br&gt;
-Let's use `mjage` from last week. What does our code look like? 
-
---
-
-```r
-hist(drugs_data$mjage)
-```
-
---
-
-```r
-drugs_dat &lt;- read_csv("drugs.csv")
-```
-
---
-
-```r
-library(readr)
-```
-
----
-
-# Histogram
-
-```r
-library(readr)
-drugs_data &lt;- read_csv("drugs.csv")
-```
-
---
-
-.pull-left[
-
-```r
-hist(drugs_data$mjage)
-```
-]
-
-.pull-right[
-&lt;img src="Mod-2.1_files/figure-html/unnamed-chunk-6-1.png" width="75%" /&gt;
-]
-
----
-# Boxplot 
-.pull-left[
-
-```r
-boxplot(drugs_data$mjage ~ drugs_data$health_cond)
-# ALT:
-# boxplot(mjage ~ health_cond, data = drugs_data)
-```
-]
-
-.pull-right[
-&lt;img src="Mod-2.1_files/figure-html/unnamed-chunk-8-1.png" width="80%" /&gt;
-]
----
-# Outline 
-
-1. Recap: Plotting variables
-2. **Github (Very quick only)**
+1. **Github (Very quick only)**
+2. Recap: Plotting variables
 3. Intro to `tidyverse`
 
 ---
@@ -135,10 +64,80 @@ If you click on a repository, you will be lead to the repository's 'landing page
 When you unzip the file, you can save it in any place on your computer that you prefer.
 
 ---
+
+## Histogram 
+
+Let's say we want to plot a histogram. What type of variable do we need?
+
+--
+&lt;br&gt;&lt;br&gt;
+Let's use `mjage` from last week. What does our code look like? 
+
+--
+
+```r
+hist(drugs_data$mjage)
+```
+
+--
+
+```r
+drugs_dat &lt;- read_csv("drugs.csv")
+```
+
+--
+
+```r
+library(readr)
+```
+---
 # Outline 
 
-1. Recap: Plotting variables
-2. Github (Very quick only)
+1. Github (Very quick only)
+2. **Recap: Plotting variables**
+3. Intro to `tidyverse`
+---
+
+# Histogram
+
+```r
+library(readr)
+drugs_data &lt;- read_csv("drugs.csv")
+```
+
+--
+
+.pull-left[
+
+```r
+hist(drugs_data$mjage)
+```
+]
+
+.pull-right[
+&lt;img src="Mod-2.1_files/figure-html/unnamed-chunk-7-1.png" width="75%" /&gt;
+]
+
+---
+# Boxplot 
+.pull-left[
+
+```r
+boxplot(drugs_data$mjage ~ drugs_data$health_cond)
+# ALT:
+# boxplot(mjage ~ health_cond, data = drugs_data)
+```
+]
+
+.pull-right[
+&lt;img src="Mod-2.1_files/figure-html/unnamed-chunk-9-1.png" width="80%" /&gt;
+]
+---
+
+# Outline 
+
+1. Github (Very quick only)
+2. Recap: Plotting variables
 3. **Intro to `tidyverse`**
 
 ---
@@ -169,6 +168,15 @@ Mainly developed by Hadley Wickham; packages that work together using consistent
 
 ---
 &lt;img src="Figures/tidy libraries.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+.pull-left[
+![var](Figures/variables.png)
+]
+
+.pull-right[
+![observ](Figures/observations.png)
+]
 
 ---
 # `select`ing Columns
@@ -217,6 +225,42 @@ select(drugs_data, mjage)
 It always returns a `tibble` which is basically a dataset
 
 ---
+# `filter`ing Rows
+
+
+```r
+?filter
+```
+
+--
+
+```r
+filter(drugs_data, mjage == 14)
+```
+
+
+```
+##      sex         sexage_rec health_cond            educ mjday30a mjage alctry
+## 1   Male   Males Aged 18-25   Very Good Some coll/Assoc       26    14      9
+## 2   Male              Other   Very Good Some coll/Assoc       23    14     12
+## 3   Male   Males Aged 12-17        Good     12-17yrsold       10    14     15
+## 4 Female Females Aged 18-25        Good         HS grad       20    14     14
+## 5 Female Females Aged 12-17        Good     12-17yrsold       30    14     NA
+##   cigtry smklsstry oxcnnmage mjmfu poverty3 irfamin3 cig30use mjever age2
+## 1     14        15       991    99        3        6        1      1    8
+## 2     13        14       993    99        2        4       30      1   15
+## 3     16       991       993    99        3        7       93      1    6
+## 4     12        15       991    99        3        6       30      1    7
+## 5     14       991       991    99        3        5        2      1    5
+##   smklss30n
+## 1        93
+## 2        93
+## 3        91
+## 4        93
+## 5        91
+```
+
+---
 # A change in syntax: Pipes 
 
 - Read %&gt;% as "then"
@@ -258,7 +302,7 @@ object %&gt;%
 ---
 # Try it
 
-Select three different variables using a pipe [hint: look at help file]
+Select three different variables using a pipe [hint: look at help file] and filter based on age greater than 14 less than or equal to 16
 
 --
 
@@ -275,6 +319,28 @@ drugs_data %&gt;%
 ## 3   Male         Less HS    16
 ## 4 Female Some coll/Assoc    16
 ## 5 Female    College grad    16
+```
+---
+# Try it
+
+Select three different variables using a pipe [hint: look at help file] and filter based on age greater than 14 less than or equal to 16
+
+--
+
+```r
+drugs_data %&gt;% 
+  select(sex, educ, mjage) %&gt;% 
+  filter(mjage &gt; 14 &amp; mjage &lt;= 16)
+```
+
+
+```
+##      sex            educ mjage
+## 1 Female     12-17yrsold    15
+## 2   Male         Less HS    16
+## 3 Female Some coll/Assoc    16
+## 4 Female    College grad    16
+## 5   Male Some coll/Assoc    16
 ```
 
 ---
@@ -353,8 +419,9 @@ drugs_data %&gt;%
 
 1. What is github like?
 2. **Two** ways to use `select` for pick the first three variables in the drugs dataset (i.e. sex, sexage_rec, and health_cond) [hint: help file]
-3. Using `%&gt;%`, `select`, and `table`, make a table with `sex` and `educ`
-4. What changes if you use `knitr::kable` at the end of #3?
+3. Filter `health_cond` is good for those who are women.
+4. Using `%&gt;%`, `select`, and `table`, make a table with `sex` and `educ`
+5. What changes if you use `knitr::kable` at the end of #3?
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
