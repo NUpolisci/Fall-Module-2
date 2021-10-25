@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Mod 2.2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="AS d’Urso; Theme by: Pilar Manzi" />
+    <meta name="date" content="2021-10-25" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link rel="stylesheet" href="custom_2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Mod 2.2
+### AS d’Urso; Theme by: Pilar Manzi
+### 10/25/2021
+
+---
+
+
+
+
+# Outline 
+
+1. Recap: `summarize`, `table`, `kable`
+2. RMD 
+
+---
+# Outline 
+
+1. **Recap: `summarize`, `table`, `kable`**
+2. RMD 
+
+---
+
+# Outline 
+
+1. Recap: `summarize`, `table`, `kable`
+2. **RMD**
+
+---
+
+# RMD 
+
+1. What is RMD?
+2. What can it do?
+3. How to use it?
+
+---
+# 1. What is RMD?
+
+R Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;http://rmarkdown.rstudio.com&gt;.
+
+---
+## What is RMD? (cont.) 
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+```r
+summary(cars)
+```
+
+```
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+```
+
+---
+## What is RMD? (best practices)
+
+1. It is a ***FINAL DRAFT***. It should not be the place you figure out your code. It should not be the place where you 'test things out'. It is the place for your final draft. You will hate your life. You will hate RMD. Do not do this.
+--
+&lt;br&gt;
+2. Knit often, because there will be errors. It is much easier to find the errors in a triangulated bit of the doc than an entire doc.
+
+---
+# 2. What can it do?
+
+Slides (like PowerPoint).
+
+--
+&lt;br&gt;&lt;br&gt;
+Plot twist... This is made using RMD. 
+
+---
+## What can it do? (plots)
+
+You can also embed plots and write about the plot, for example:
+
+--
+.pull-left[
+
+```r
+plot(pressure)
+```
+]
+
+--
+.pull-right[
+&lt;img src="Mod-2.2_files/figure-html/pressure with code chunk-1.png" width="400px" /&gt;
+]
+
+---
+## What can it do? (output configs.)
+By default, it will include the code, but you can remove it by specifying print conditions: 
+
+&lt;img src="Mod-2.2_files/figure-html/pressure-1.png" width="400px" /&gt;
+
+---
+## What can it do? (output configs.)
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+---
+## What can it do? (output types)
+You can produce reproducible reports and export it to formats including HTML, PDF, MS Word, Beamer, HTML5 slides, Tufte-style handouts, books, dashboards, shiny applications, scientific articles, websites, and more.
+
+---
+# 3. How to use it?
+
+*File* &gt; *New File* &gt; *R Markdown...*
+&lt;br&gt;
+&lt;img src="Figures/rmd1.png" width="450px" style="display: block; margin: auto;" /&gt;
+---
+## How to use it? (setup)
+
+Pick your output--but you can change it later. 
+Need LaTeX to export to pdf; for now, let's use HTML
+&lt;br&gt;
+&lt;img src="Figures/rmd1.png" width="450px" style="display: block; margin: auto;" /&gt;
+
+---
+## How to use it? (setup)
+
+&lt;img src="Figures/rmd2.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+## How to use it? (code chunks)
+
+In R scripts, the empty space is for code, and you have to mark plain text by commenting using `#` 
+--
+&lt;br&gt;&lt;br&gt;
+In an RMD, the empty space is for text, not code.
+
+---
+## How to use it? (code chunks)
+To mark code, you have to indicate three ticks, curly brackets, and the language `r`. Use three ticks to close the code chunk. It should be a different color to the rest of the doc
+
+&lt;img src="Figures/rmd3.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+## How to use it? (markdown)
+
+Use Cheat Sheet [rmd cheatsheet](rmarkdown-cheatsheet.pdf). 
+
+---
+## How to use it? (main text)
+
+code | result
+-----|-------
+`*italics*` | *italics*
+`**bold**`  | **bold**
+`line &lt;br&gt; break`  | line &lt;br&gt;
+     | break
+
+
+---
+## How to use it? (main text: headers)
+
+`# Header 1` 
+# Header 1
+--
+&lt;br&gt;
+`### Header 3` 
+### Header 3
+--
+&lt;br&gt;
+`###### Header 6` 
+###### Header 6
+---
+## How to use it? (tables)
+
+.pull-left[
+`Student | Grade`&lt;br&gt;
+`------- | -----`&lt;br&gt;
+`Rusha   | 86%`&lt;br&gt;
+`Afsaneh | 85%`&lt;br&gt;
+`Kento   | 83%`&lt;br&gt;
+]
+
+--
+.pull-right[
+Student | Grade
+------- | -----
+Rusha   | 86%
+Afsaneh | 85%
+Kento   | 83%
+]
+
+---
+## How to use it? (code chunk config)
+
+` ```{r UNIQUE code chunk name, error = F} `
+
+` ``` `
+
+&lt;img src="Figures/rmd4.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+---
+## How to use it? (LaTeX equations)
+
+`$...$`
+--
+.pull-left[
+`$x^2 + y^2 = z^2$`
+]
+
+.pull-right[
+`\(x^2 + y^2 = z^2\)`
+]
+
+--
+
+`$Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$`
+
+
+.pull-right[
+`\(Y_i = \beta_0 + \beta_1 X_i + \epsilon_i\)`
+]
+
+---
+## Knitting RMD
+
+ctrl/cmd + shift + k
+--
+&lt;br&gt;&lt;br&gt;
+or with buttons (the ball of yarn)
+
+&lt;img src="Figures/rmd5.png" width="600px" style="display: block; margin: auto;" /&gt;
+---
+# Exercises
+
+This exercise uses the drugs data from before. You may need to consult information about the dataset, which you can find [here](https://www.icpsr.umich.edu/web/NAHDAP/studies/06887/summary). 
+
+1. Consider people who first tried marijuana at 12 and people who first ried cigarettes at 12: what is the average number of days these individuals have smoked pot within the past 30 days? (hint: there should be one number, i.e. combine the two groups)
+  + Use `pipes` and `tidyverse`
+  + Use tidy code configuration option
+  + knit to html
+2. Screenshot your R script of you completing exercise 1. 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
