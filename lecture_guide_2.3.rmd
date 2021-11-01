@@ -1,0 +1,167 @@
+
+title: "Lecture Guide"
+author: "[your name]"
+date: "11/01/2021"
+output: 
+  xaringan::moon_reader:
+    seal: true 
+    css: custom_2.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gapminder)
+library(tidyverse)
+```
+
+# Outline 
+
+1. Recap: RMD, pipes, `select`, `filter` 
+2. `summarize` +
+3. Exercises 
+
+## RMD
+
+- Final draft/determine whether or not you need to include the code chunk in the output 
+
+- One code chunk per output 
+
+### This is what we want 
+
+First, we also look at the total population across country-years: 
+
+```{r, eval = F}
+gapminder %>%  
+  select(pop) %>% 
+  summary()
+```
+
+Then, we look at the summary statistics of life expectancy across all country-years:
+```{r, eval = F}
+gapminder %>%  
+  select(lifeExp) %>% 
+  summary()
+```
+
+### We do not want 
+
+I can't write about bother things in a smooth way... Maybe they output separately, but I can't write about them ...
+
+```{r, eval = T}
+gapminder %>%  
+  select(pop) %>% 
+  summary()
+
+gapminder %>%  
+  select(lifeExp) %>% 
+  summary()
+```
+
+... unless I do it in this awkward sandwich style.
+
+
+## Pipes 
+
+- Read %>% as "then"
+
+- **It fills in the first argument of your function from the tibble previously created**
+
+- It lets us perform multiple operations at once, without creating an object for each one of them.
+
+
+## How it works
+
+Piped syntax: 
+```{r eval = F}
+gapminder %>% 
+  select(country, year, lifeExp)
+```
+
+- This output is now a tibble, when we add a pipe, we are saying take this modified tibble (i.e. with only 3 variables/columns) and use this as our data source
+
+- When our next `dplyr` function like `filter` looks for the first argument, e.g. 'data', it will use that modified tibble
+
+## Filter
+
+- `select` selects variables/columns
+
+- `filter` filters out rows/observations/respondents
+
+- **REQUIRES LOGICAL STATEMENT**: IF the statement about the data is TRUE, THEN it will give you those rows
+
+## Logical Notations 
+
+Symbol |Meaning 
+-|-
+==|*is exactly equal to*
+!=|*is not equal to*
+&|*and*
+\||*or*
+>=|*greater than or equal to*
+<=|*less than or equal to*
+>|*greater than*
+<|*less than*
+itTRUE(x)|*tests whether x is T*
+
+# Outline 
+
+1. Recap: Pipes, `select`, `filter`, RMD 
+2. **`summarize`+**
+3. Exercises
+
+## `summarize`
+
+- Recall: `summarize` condenses into the number of summary stats you are asking for
+
+```{r}
+gapminder %>% 
+  summarize(blah_chicken = mean(pop))
+```
+
+## `summarize` by groups
+
+- use `group_by`
+
+```{r}
+
+```
+
+
+- Exercise 1: Before running this code, figure out how many rows and columns you expect to see (hint: use tables) 
+
+
+- Exercise 2: What about if you grouped by *both* country and *year* 
+
+
+## `summarize` multiple 
+
+```{r}
+
+```
+
+- Exercise 3: Before running this code, figure out how many rows and columns you expect to see.
+
+
+# Exercises 
+
+Use `iris` data and R scripts + RMD
+
+1. Find the descriptive stats on sepal length and write a sentence about it in the RMD 
+2. Find the average petal length and width per each species 
+3. Do the same but only for those flowers with a petal length under 5.0 and petal width above 1
+4. Print the result of number 3 into a nice table in RMD and talk through the results 
+
+
+## Bonus 
+
+5. Bonus (easy): what does `mutate` do?
+6. Bonus (hard): add a column call `petal_ratio` that is the ratio of petal length and petal width
+7. Bonus (extreme): add two columns, one called `petal_ratio` and the other called `sepal_ratio` while using `mutate` once (hint: see how we summarized multiple)
+
+

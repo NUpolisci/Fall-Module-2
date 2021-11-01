@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Mod 2.3</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="AS d’Urso; Theme by: Pilar Manzi" />
+    <meta name="date" content="2021-11-01" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link rel="stylesheet" href="custom_2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Mod 2.3
+### AS d’Urso; Theme by: Pilar Manzi
+### 11/01/2021
+
+---
+
+
+
+
+# Outline 
+
+1. Recap: RMD, pipes, `select`, `filter` 
+2. `summarize` +
+3. Exercises 
+
+---
+# Outline 
+
+1. **Recap: RMD, pipes, `select`, `filter`**
+2. `summarize` +
+3. Exercises
+
+---
+## RMD
+
+
+--
+- Final draft/determine whether or not you need to include the code chunk in the output 
+
+
+--
+- One code chunk per output 
+
+---
+### This is what we want 
+
+First, we also look at the total population across country-years: 
+
+
+```r
+gapminder %&gt;%  
+  select(pop) %&gt;% 
+  summary()
+```
+--
+Then, we look at the summary statistics of life expectancy across all country-years:
+
+```r
+gapminder %&gt;%  
+  select(lifeExp) %&gt;% 
+  summary()
+```
+
+---
+### We do not want 
+
+
+```r
+gapminder %&gt;%  
+  select(pop) %&gt;% 
+  summary()
+```
+
+```
+##       pop           
+##  Min.   :6.001e+04  
+##  1st Qu.:2.794e+06  
+##  Median :7.024e+06  
+##  Mean   :2.960e+07  
+##  3rd Qu.:1.959e+07  
+##  Max.   :1.319e+09
+```
+
+```r
+gapminder %&gt;%  
+  select(lifeExp) %&gt;% 
+  summary()
+```
+
+```
+##     lifeExp     
+##  Min.   :23.60  
+##  1st Qu.:48.20  
+##  Median :60.71  
+##  Mean   :59.47  
+##  3rd Qu.:70.85  
+##  Max.   :82.60
+```
+
+
+---
+## Pipes 
+
+--
+- Read %&gt;% as "then"
+
+--
+- **It fills in the first argument of your function from the tibble previously created**
+
+--
+- It lets us perform multiple operations at once, without creating an object for each one of them.
+
+---
+## How it works
+
+Piped syntax: 
+
+```r
+gapminder %&gt;% 
+  select(country, year, lifeExp)
+```
+--
+- This output is now a tibble, when we add a pipe, we are saying take this modified tibble (i.e. with only 3 variables/columns) and use this as our data source
+
+--
+- When our next `dplyr` function like `filter` looks for the first argument, e.g. 'data', it will use that modified tibble
+
+---
+## Filter
+
+--
+- `select` selects variables/columns
+
+--
+- `filter` filters out rows/observations/respondents
+
+--
+- **REQUIRES LOGICAL STATEMENT**: IF the statement about the data is TRUE, THEN it will give you those rows
+
+---
+## Logical Notations 
+
+Symbol |Meaning 
+-------|-------
+==|*is exactly equal to*
+!=|*is not equal to*
+`\(\mid\)`|*or*
+&amp;|*and*
+&gt;=|*greater than or equal to*
+&lt;=|*less than or equal to*
+&gt;|*greater than*
+&lt;|*less than*
+
+---
+# Outline 
+
+1. Recap: Pipes, `select`, `filter`, RMD 
+2. **`summarize` +**
+3. Exercises
+
+---
+## `summarize`
+
+--
+- Recall: `summarize` condenses into the number of summary stats you are asking for
+
+--
+
+```r
+gapminder %&gt;% 
+  summarize(blah_chicken = mean(pop))
+```
+
+--
+
+```
+## # A tibble: 1 x 1
+##   blah_chicken
+##          &lt;dbl&gt;
+## 1    29601212.
+```
+
+---
+## `summarize` by groups
+
+- use `group_by`
+
+
+```r
+gapminder %&gt;% 
+  group_by(country) %&gt;% 
+  summarize(mean_pop = mean(pop))
+```
+
+--
+- Exercise 1: Before running this code, figure out how many rows and columns you expect to see (hint: use tables) 
+
+--
+- Exercise 2: What about if you grouped by *both* country and *year* 
+
+---
+## `summarize` multiple 
+
+
+```r
+gapminder %&gt;% 
+  group_by(country) %&gt;% 
+  summarize(mean_pop = mean(pop), 
+            mean_lifexp = mean(lifeExp))
+```
+--
+- Exercise 3: Before running this code, figure out how many rows and columns you expect to see.
+
+---
+# Exercise 
+
+Use `iris` data and R scripts + RMD
+
+1. Find the descriptive stats on sepal length and write a sentence about it in the RMD 
+2. Find the average petal length and width per each species 
+3. Do the same but only for those flowers with a petal length under 5.0 and petal width above 1
+4. Print the result of number 3 into a nice table in RMD and talk through the results 
+
+---
+## Bonus 
+
+5. Bonus (easy): what does `mutate` do?
+6. Bonus (hard): add a column call `petal_ratio` that is the ratio of petal length and petal width
+7. Bonus (extreme): add two columns, one called `petal_ratio` and the other called `sepal_ratio` while using `mutate` once (hint: see how we summarized multiple)
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
